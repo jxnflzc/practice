@@ -33,3 +33,5 @@ build/
 .vscode/
 /src/main/resources/properties/sql.properties
 /src/main/resources/mybatis/mybatis-generator.xml
+/src/test/java/per/jxnflzc/practice/
+/.mvn/wrapper/
