@@ -30,13 +30,4 @@ public class UserInfo {
     public void setUserGender(String userGender) {
         this.userGender = userGender == null ? null : userGender.trim();
     }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userGender='" + userGender + '\'' +
-                '}';
-    }
 }

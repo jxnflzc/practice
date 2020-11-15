@@ -5,4 +5,6 @@ import per.jxnflzc.practice.model.UserSign;
 
 public interface UserService {
     ResponseBodyInfo register(UserSign userSign);
+
+    ResponseBodyInfo login(UserSign userSign);
 }

@@ -1,6 +1,7 @@
 package per.jxnflzc.practice.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import per.jxnflzc.practice.model.UserSign;
 
@@ -16,6 +17,8 @@ public interface UserSignMapper {
     UserSign selectByPrimaryKey(String userId);
 
     UserSign select(UserSign record);
+
+    UserSign login(@Param("userSign") UserSign userSign);
 
     int updateByPrimaryKeySelective(UserSign record);
 

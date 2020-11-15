@@ -1,65 +1,72 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="per.jxnflzc.practice.dao.UserSignMapper" >
-  <resultMap id="BaseResultMap" type="per.jxnflzc.practice.model.UserSign" >
-    <id column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.jxnflzc.practice.dao.UserSignMapper">
+  <resultMap id="BaseResultMap" type="per.jxnflzc.practice.model.UserSign">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     user_id, user_password
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user_sign
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
-  <select id="select" resultMap="BaseResultMap" parameterType="per.jxnflzc.practice.model.UserSign" >
+  <select id="select" parameterType="per.jxnflzc.practice.model.UserSign" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user_sign
     where user_id = #{userId,jdbcType=VARCHAR}
-        and user_password = #{userPassword,jdbcType=VARCHAR}
+        and user_password = password(#{userPassword,jdbcType=VARCHAR})
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <select id="login" parameterType="per.jxnflzc.practice.model.UserSign" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_sign
+    where user_id = #{userSign.userId,jdbcType=VARCHAR}
+        and user_password = password(#{userSign.userPassword,jdbcType=VARCHAR})
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user_sign
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="per.jxnflzc.practice.model.UserSign" >
+  <insert id="insert" parameterType="per.jxnflzc.practice.model.UserSign">
     insert into user_sign (user_id, user_password)
-    values (#{userId,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR})
+    values (#{userId,jdbcType=VARCHAR}, password(#{userPassword,jdbcType=VARCHAR}))
   </insert>
-  <insert id="insertSelective" parameterType="per.jxnflzc.practice.model.UserSign" >
+  <insert id="insertSelective" parameterType="per.jxnflzc.practice.model.UserSign">
     insert into user_sign
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="userPassword != null" >
+      <if test="userPassword != null">
         user_password,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null" >
-        #{userPassword,jdbcType=VARCHAR},
+      <if test="userPassword != null">
+        password(#{userPassword,jdbcType=VARCHAR}),
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="per.jxnflzc.practice.model.UserSign" >
+  <update id="updateByPrimaryKeySelective" parameterType="per.jxnflzc.practice.model.UserSign">
     update user_sign
-    <set >
-      <if test="userPassword != null" >
-        user_password = #{userPassword,jdbcType=VARCHAR},
+    <set>
+      <if test="userPassword != null">
+        user_password = password(#{userPassword,jdbcType=VARCHAR}),
       </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="per.jxnflzc.practice.model.UserSign" >
+  <update id="updateByPrimaryKey" parameterType="per.jxnflzc.practice.model.UserSign">
     update user_sign
-    set user_password = #{userPassword,jdbcType=VARCHAR}
+    set user_password = password(#{userPassword,jdbcType=VARCHAR})
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

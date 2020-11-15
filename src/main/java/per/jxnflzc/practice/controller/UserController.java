@@ -31,6 +31,15 @@ public class UserController {
         return ResponseBodyInfo.build(ResponseCode.PARAM_ERROR);
     }
 
+    @ApiOperation(value = "用户登录")
+    @PostMapping(value = "/login")
+    public ResponseBodyInfo login(@RequestBody @ApiParam(value = "用户账号密码") UserSign userSign) {
+        if (validateUserSign(userSign)) {
+            return userService.login(userSign);
+        }
+        return ResponseBodyInfo.build(ResponseCode.PARAM_ERROR);
+    }
+
     private boolean validateUserSign(UserSign userSign) {
         return StringUtils.isNotBlank(userSign.getUserId())
                 && StringUtils.isNotBlank(userSign.getUserPassword());
