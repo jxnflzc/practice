@@ -30,7 +30,11 @@ public class BookController {
     @PostMapping(value = "/add")
     public ResponseBodyInfo add(@RequestBody Book book) {
         logger.debug("book:{}",book);
-        bookRepository.save(book);
+        try {
+            bookRepository.save(book);
+        } catch (Exception ex) {
+            return ResponseBodyInfo.error("添加图书信息失败");
+        }
         return ResponseBodyInfo.success("保存成功");
     }
 

@@ -1,4 +1,8 @@
-# README
+# PRACTICE README
+
+[![Version](https://img.shields.io/badge/Version-0.1.2-brightgreen.svg)](https://github.com/jxnflzc/practice)
+<br/>
+[![License](https://img.shields.io/badge/License-GPLv3.0-blue)](https://github.com/jxnflzc/practice/blob/master/LICENSE)
 
 ### 部分配置文件
 
