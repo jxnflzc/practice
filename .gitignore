@@ -35,3 +35,5 @@ build/
 /src/main/resources/mybatis/mybatis-generator.xml
 /src/test/java/per/jxnflzc/practice/
 /.mvn/wrapper/
+/src/main/resources/properties/token.properties
+/src/main/resources/properties/redis.properties

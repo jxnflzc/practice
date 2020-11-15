@@ -2,6 +2,7 @@ package per.jxnflzc.practice.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import per.jxnflzc.practice.model.CurrentUser;
 import per.jxnflzc.practice.model.UserInfo;
 
 @Mapper
@@ -14,6 +15,8 @@ public interface UserInfoMapper {
     int insertSelective(UserInfo record);
 
     UserInfo selectByPrimaryKey(String userId);
+
+    CurrentUser generatorCurrentUser(String userId);
 
     int updateByPrimaryKeySelective(UserInfo record);
 
