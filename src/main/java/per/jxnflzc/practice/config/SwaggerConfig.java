@@ -1,5 +1,6 @@
 package per.jxnflzc.practice.config;
 
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -20,6 +21,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select() // 选择哪些路径和api会生成document
                 .apis(RequestHandlerSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .paths(PathSelectors.any())// 对根下所有路径进行监控
                 .build();
         return docket;
@@ -28,13 +30,12 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Practice接口文档")
                 .description("这是用Swagger动态生成的接口文档")
-                .termsOfServiceUrl("NO terms of service")
                 .contact(
                         new Contact("jxnflzc", "http://120.78.141.62", "245186727@qq.com")
                 )
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("0.0.1")
+                .version("0.1.1")
                 .build();
     }
 }
