@@ -1,0 +1,9 @@
+                            __  .__              
+__________________    _____/  |_|__| ____  ____  
+\____ \_  __ \__  \ _/ ___\   __\  |/ ___\/ __ \ 
+|  |_> >  | \// __ \\  \___|  | |  \  \__\  ___/ 
+|   __/|__|  (____  /\___  >__| |__|\___  >___  >
+|__|              \/     \/             \/    \/ 
+
+${AnsiColor.BRIGHT_YELLOW}:: Spring Boot ::	${AnsiColor.BRIGHT_BLUE}${spring-boot.formatted-version}
+${AnsiColor.DEFAULT}

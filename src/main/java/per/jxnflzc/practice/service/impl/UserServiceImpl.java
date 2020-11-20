@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseBodyInfo register(UserSign userSign) {
         ResponseBodyInfo<Object> result;
-        LOGGER.debug("userSign:{}", userSign);
         UserSign exist = userSignMapper.selectByPrimaryKey(userSign.getUserId());
         if (exist == null) {
             UserInfo userInfo = new UserInfo();
@@ -75,7 +74,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseBodyInfo login(UserSign userSign) {
         ResponseBodyInfo<Object> result;
-        LOGGER.debug("userSign:{}", userSign);
         UserSign exist = userSignMapper.login(userSign);
         if (exist == null) {
             result = ResponseBodyInfo.error("登录失败");
@@ -84,7 +82,6 @@ public class UserServiceImpl implements UserService {
             String token = idUtil.generatorId();
             currentUser.setUid(token);
             redisUtil.set(token, currentUser, 60 * 60 * 6);
-            LOGGER.debug("token:{}",token);
             result = ResponseBodyInfo.success(token);
         }
         return result;
