@@ -1,17 +1,17 @@
 package per.jxnflzc.practice.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum ResponseCode implements CodeEnum {
-    SUCCESS("200", "请求成功"),
-    PARAM_ERROR("400", "参数错误"),
-    FAIL("999", "请求失败");
+public enum LabelType implements CodeEnum {
+    STRING("S", "字符型"),
+    NUMBER("N", "数字型");
 
     private String code;
 
     private String desc;
 
-    ResponseCode(String code, String desc) {
+    LabelType(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -25,7 +25,7 @@ public enum ResponseCode implements CodeEnum {
     }
 
     @JsonCreator
-    public ResponseCode fromCode(String code) {
-        return CodeEnum.fromCode(ResponseCode.class, code);
+    public static LabelType fromCode(String code) {
+        return CodeEnum.fromCode(LabelType.class, code);
     }
 }

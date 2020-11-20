@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 public class BookController {
-    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
     private BookRepository bookRepository;
 
@@ -29,7 +29,7 @@ public class BookController {
     @ApiOperation(value = "添加图书")
     @PostMapping(value = "/add")
     public ResponseBodyInfo add(@RequestBody Book book) {
-        logger.debug("book:{}",book);
+        LOGGER.debug("book:{}",book);
         try {
             bookRepository.save(book);
         } catch (Exception ex) {
@@ -41,7 +41,7 @@ public class BookController {
     @ApiOperation(value = "通过id获取图书")
     @GetMapping(value = "/id/{id}")
     public ResponseBodyInfo queryById(@PathVariable("id") String id) {
-        logger.debug("id:{}",id);
+        LOGGER.debug("id:{}",id);
         Book book = null;
         try {
             book = bookRepository.findBookById(id);
@@ -54,7 +54,7 @@ public class BookController {
     @ApiOperation(value = "通过名称获取图书")
     @GetMapping(value = "/name/{name}")
     public ResponseBodyInfo queryByName(@PathVariable("name") String name) {
-        logger.debug("name:{}",name);
+        LOGGER.debug("name:{}",name);
         Book book = null;
         try {
             book = bookRepository.findBookByName(name);
@@ -67,7 +67,7 @@ public class BookController {
     @ApiOperation(value = "通过作者获取图书")
     @GetMapping(value = "/author/{author}")
     public ResponseBodyInfo queryByAuthor(@PathVariable("author") String author) {
-        logger.debug("author:{}",author);
+        LOGGER.debug("author:{}",author);
         List<Book> books = new ArrayList<>();
         try {
             books = bookRepository.findBookByAuthor(author);

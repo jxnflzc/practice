@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.jxnflzc.practice.dao.BaseLabelMapper" >
+  <resultMap id="BaseResultMap" type="per.jxnflzc.practice.model.BaseLabel" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    <result column="label_value" property="labelValue" jdbcType="VARCHAR" />
+    <result column="label_value" property="labelValues" typeHandler="per.jxnflzc.practice.handler.String2ListTypeHandler"/>
+    <result column="label_type" property="labelType" typeHandler="per.jxnflzc.practice.handler.CodeEnumTypeHandler"/>
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    label_id, label_name, label_value, label_type, created_by, created_time, updated_by, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from base_label
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryLabelList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_label
+    limit #{pageable.size} offset #{pageable.offset}
+  </select>
+  <select id="queryLabelListCount" resultType="int">
+    select
+     count(1)
+    from base_label
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_label
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="per.jxnflzc.practice.model.BaseLabel" >
+    insert into base_label (label_id, label_name, label_value, label_type,
+      created_by, created_time, updated_by, 
+      updated_time)
+    values (#{labelId,jdbcType=VARCHAR}, #{labelName,jdbcType=VARCHAR}, #{labelValue,jdbcType=VARCHAR}, #{labelType,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="per.jxnflzc.practice.model.BaseLabel" >
+    insert into base_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        label_id,
+      </if>
+      <if test="labelName != null" >
+        label_name,
+      </if>
+      <if test="labelValue != null" >
+        label_value,
+      </if>
+      <if test="labelType != null" >
+        label_type,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        #{labelId,jdbcType=VARCHAR},
+      </if>
+      <if test="labelName != null" >
+        #{labelName,jdbcType=VARCHAR},
+      </if>
+      <if test="labelValue != null" >
+        #{labelValue,jdbcType=VARCHAR},
+      </if>
+      <if test="labelType != null" >
+        #{labelType,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="per.jxnflzc.practice.model.BaseLabel" >
+    update base_label
+    <set >
+      <if test="labelName != null" >
+        label_name = #{labelName,jdbcType=VARCHAR},
+      </if>
+      <if test="labelValue != null" >
+        label_value = #{labelValue,jdbcType=VARCHAR},
+      </if>
+      <if test="labelType != null" >
+        label_type = #{labelType,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="per.jxnflzc.practice.model.BaseLabel" >
+    update base_label
+    set label_name = #{labelName,jdbcType=VARCHAR},
+      label_value = #{labelValue,jdbcType=VARCHAR},
+      label_type = #{labelType,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

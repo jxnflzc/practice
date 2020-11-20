@@ -18,7 +18,7 @@ import per.jxnflzc.practice.util.RedisUtil;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private static final String PREFIX_TOKEN = "token ";
 
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseBodyInfo register(UserSign userSign) {
         ResponseBodyInfo<Object> result;
-        logger.debug("userSign:{}", userSign);
+        LOGGER.debug("userSign:{}", userSign);
         UserSign exist = userSignMapper.selectByPrimaryKey(userSign.getUserId());
         if (exist == null) {
             UserInfo userInfo = new UserInfo();
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseBodyInfo login(UserSign userSign) {
         ResponseBodyInfo<Object> result;
-        logger.debug("userSign:{}", userSign);
+        LOGGER.debug("userSign:{}", userSign);
         UserSign exist = userSignMapper.login(userSign);
         if (exist == null) {
             result = ResponseBodyInfo.error("登录失败");
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             String token = idUtil.generatorId();
             currentUser.setUid(token);
             redisUtil.set(token, currentUser, 60 * 60 * 6);
-            logger.debug("token:{}",token);
+            LOGGER.debug("token:{}",token);
             result = ResponseBodyInfo.success(token);
         }
         return result;

@@ -11,6 +11,8 @@ import per.jxnflzc.practice.model.UserSign;
 import per.jxnflzc.practice.model.enums.ResponseCode;
 import per.jxnflzc.practice.service.UserService;
 
+import javax.validation.Valid;
+
 @Api(tags = {"用户信息相关"})
 @RestController
 @RequestMapping("/user")
@@ -24,7 +26,7 @@ public class UserController {
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo register(@RequestBody @ApiParam(value = "用户账号密码") UserSign userSign) {
+    public ResponseBodyInfo register(@Valid @RequestBody  @ApiParam(value = "用户账号密码") UserSign userSign) {
         if (validateUserSign(userSign)) {
             return userService.register(userSign);
         }

@@ -1,10 +1,17 @@
 package per.jxnflzc.practice.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "用户信息数据")
 public class UserInfo {
+    @ApiModelProperty(value = "用户Id")
     private String userId;
 
+    @ApiModelProperty(value = "用户姓名")
     private String userName;
 
+    @ApiModelProperty(value = "用户性别")
     private String userGender;
 
     public String getUserId() {

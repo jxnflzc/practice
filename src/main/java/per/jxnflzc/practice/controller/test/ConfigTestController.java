@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/test/v1/conf")
 public class ConfigTestController {
-    private static final Logger logger = LoggerFactory.getLogger(ConfigTestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigTestController.class);
 
     private static final String PATH_PRE = "/properties/";
 
@@ -56,7 +56,7 @@ public class ConfigTestController {
                 i = bis.read(buffer);
             }
         } catch (Exception e) {
-            logger.debug("下载失败:{}", e.toString());
+            LOGGER.debug("下载失败:{}", e.toString());
             return ResponseBodyInfo.success("下载失败");
         } finally {
             if (bis != null) {

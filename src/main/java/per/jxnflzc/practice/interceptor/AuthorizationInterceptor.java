@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,10 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
-    private static final Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
     private RedisUtil redisUtil;
 
@@ -58,7 +58,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 // 从HTTP请求头中获取TOKEN信息
                 String token = request.getHeader(httpHeaderName);
 
-                if (!redisUtil.hasKey(token)) {
+                if (!StringUtils.hasText(token) || !redisUtil.hasKey(token)) {
                     returnInfo(response);
                     return false;
                 } else {
@@ -89,7 +89,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             ResponseBodyInfo result = ResponseBodyInfo.error("未登录或登录超时");
             writer.print(JSON.toJSONString(result));
         } catch (IOException e) {
-            logger.error("拦截器输出流异常:{}", e.toString());
+            LOGGER.error("拦截器输出流异常:{}", e.toString());
         }
     }
 }
