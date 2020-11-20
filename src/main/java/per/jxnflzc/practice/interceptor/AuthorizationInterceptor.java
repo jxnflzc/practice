@@ -35,10 +35,10 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     private String httpHeaderName = "Authorization";
 
     //鉴权失败后返回的错误信息，默认为401 unauthorized
-    private String unauthorizedErrorMessage = "401 unauthorized";
+    private final String unauthorizedErrorMessage = "401 unauthorized";
 
     //鉴权失败后返回的HTTP错误码，默认为401
-    private int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
+    private final int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
 
     //存放登录用户模型Key的Request Key
     public static final String REQUEST_CURRENT_KEY = "REQUEST_CURRENT_KEY";

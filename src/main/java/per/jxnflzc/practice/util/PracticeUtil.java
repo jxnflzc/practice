@@ -32,4 +32,14 @@ public final class PracticeUtil {
         }
         return authentication.getName();
     }
+
+    public String getCurrentUserToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof  CurrentUser) {
+            return ((CurrentUser) principal).getUid();
+        }
+        return null;
+    }
 }
