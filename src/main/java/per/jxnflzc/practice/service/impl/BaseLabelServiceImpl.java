@@ -14,6 +14,7 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.service.BaseLabelService;
 import per.jxnflzc.practice.util.IdUtil;
 import per.jxnflzc.practice.util.PracticeUtil;
+import per.jxnflzc.practice.util.SequenceUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,10 @@ public class BaseLabelServiceImpl implements BaseLabelService {
 
     private IdUtil idUtil;
 
+    private SequenceUtil sequenceUtil;
+
+    private static final String BASE_LABEL_ID = "base_label.id";
+
     @Autowired
     public void setBaseLabelMapper(BaseLabelMapper baseLabelMapper) {
         this.baseLabelMapper = baseLabelMapper;
@@ -36,6 +41,11 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     @Autowired
     public void setIdUtil(IdUtil idUtil) {
         this.idUtil = idUtil;
+    }
+
+    @Autowired
+    public void setSequenceUtil(SequenceUtil sequenceUtil) {
+        this.sequenceUtil = sequenceUtil;
     }
 
     @Override
@@ -54,7 +64,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
         boolean first = false;
         if (!StringUtils.hasText(labelId)) {
             first = true;
-            labelId = idUtil.generatorId();
+            labelId = sequenceUtil.generatorId(BASE_LABEL_ID);
             baseLabel.setLabelId(labelId);
         }
 

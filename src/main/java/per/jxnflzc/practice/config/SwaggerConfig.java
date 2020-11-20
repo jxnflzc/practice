@@ -1,6 +1,7 @@
 package per.jxnflzc.practice.config;
 
 import com.google.common.base.Predicates;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -15,6 +16,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    @Value("${practice.version}")
+    private String version;
+
     @Bean
     public Docket api() {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
@@ -35,7 +39,7 @@ public class SwaggerConfig {
                 )
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("0.1.1")
+                .version(version)
                 .build();
     }
 }

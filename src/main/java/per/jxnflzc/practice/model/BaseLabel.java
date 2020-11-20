@@ -1,18 +1,26 @@
 package per.jxnflzc.practice.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import per.jxnflzc.practice.model.enums.LabelType;
 
 import java.util.List;
 
+@ApiModel(description = "基础标签")
 public class BaseLabel extends BaseModel {
+    @ApiModelProperty(value = "标签ID")
     private String labelId;
 
+    @ApiModelProperty(value = "标签名称")
     private String labelName;
 
+    @ApiModelProperty(value = "标签值")
     private String labelValue;
 
+    @ApiModelProperty(value = "标签值", hidden = true)
     private List<String> labelValues;
 
+    @ApiModelProperty(value = "标签类型")
     private LabelType labelType;
 
     public String getLabelId() {
