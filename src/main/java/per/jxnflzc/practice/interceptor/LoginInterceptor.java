@@ -16,15 +16,14 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.enums.ResponseCode;
 import per.jxnflzc.practice.util.RedisUtil;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
-public class AuthorizationInterceptor implements HandlerInterceptor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+public class LoginInterceptor implements HandlerInterceptor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginInterceptor.class);
 
     private RedisUtil redisUtil;
 
@@ -36,40 +35,16 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     //存放鉴权信息的Header名称，默认是Authorization
     private String httpHeaderName = "Authorization";
 
-    //鉴权失败后返回的错误信息，默认为401 unauthorized
-    private final String unauthorizedErrorMessage = "401 unauthorized";
-
-    //鉴权失败后返回的HTTP错误码，默认为401
-    private final int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
-
-    //存放登录用户模型Key的Request Key
-    public static final String REQUEST_CURRENT_KEY = "REQUEST_CURRENT_KEY";
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
 
-        // 如果打上了AuthToken注解则需要验证token
-        if (method.isAnnotationPresent(NeedLogin.class)) {
-            NeedLogin needLogin = method.getAnnotation(NeedLogin.class);
-            if (needLogin.required()) {
-                // 从HTTP请求头中获取TOKEN信息
-                String token = request.getHeader(httpHeaderName);
+        String token = request.getHeader(httpHeaderName);
 
-                if (!StringUtils.hasText(token) || !redisUtil.hasKey(token)) {
-                    returnInfo(response);
-                    return false;
-                } else {
-                    CurrentUser currentUser = redisUtil.getCurrentUser(token);
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(currentUser,null);
-                    authentication.setDetails(request);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
+        if (StringUtils.hasText(token) && redisUtil.hasKey(token)) {
+            redisUtil.del(token);
         }
         return true;
     }

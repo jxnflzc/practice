@@ -1,6 +1,6 @@
 # PRACTICE README
 
-[![Version](https://img.shields.io/badge/Version-0.3.0-brightgreen.svg)](https://github.com/jxnflzc/practice)
+[![Version](https://img.shields.io/badge/Version-0.3.1-brightgreen.svg)](https://github.com/jxnflzc/practice)
 <br/>
 [![License](https://img.shields.io/badge/License-GPLv3.0-blue)](https://github.com/jxnflzc/practice/blob/master/LICENSE)
 
