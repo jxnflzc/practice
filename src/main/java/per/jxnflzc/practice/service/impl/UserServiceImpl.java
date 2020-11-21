@@ -86,4 +86,16 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    @Override
+    public ResponseBodyInfo generatorCurrentUser(String userId) {
+        ResponseBodyInfo<Object> result;
+        CurrentUser currentUser = userInfoMapper.generatorCurrentUser(userId);
+        if (currentUser != null) {
+            result = ResponseBodyInfo.success(currentUser);
+        } else {
+            result = ResponseBodyInfo.error("用户 " + userId + " 不存在");
+        }
+        return result;
+    }
 }

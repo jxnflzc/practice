@@ -19,9 +19,11 @@ public interface BaseLabelMapper {
 
     BaseLabel selectByPrimaryKey(String labelId);
 
-    List<BaseLabel> queryLabelList(@Param("pageable") Pageable pageable);
+    List<BaseLabel> queryLabelList(@Param("pageable") Pageable pageable,
+                                   @Param("keywords") String keywords,
+                                   @Param("labelType") String labelType);
 
-    int queryLabelListCount();
+    int queryLabelListCount(@Param("keywords") String keywords, @Param("labelType") String labelType);
 
     int updateByPrimaryKeySelective(BaseLabel record);
 

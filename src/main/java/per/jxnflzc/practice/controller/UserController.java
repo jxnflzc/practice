@@ -66,4 +66,15 @@ public class UserController {
         redisUtil.del(token);
         return ResponseBodyInfo.success("登出成功");
     }
+
+    @ApiOperation(value = "用户个人信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/info")
+    public ResponseBodyInfo info() {
+        String userId = PracticeUtil.getInstance().getCurrentUserId();
+        return userService.generatorCurrentUser(userId);
+    }
 }

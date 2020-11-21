@@ -49,11 +49,11 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo queryLabelList(Pageable pageable) {
-        int count = baseLabelMapper.queryLabelListCount();
+    public ResponseBodyInfo queryLabelList(Pageable pageable, String keywords, String labelType) {
+        int count = baseLabelMapper.queryLabelListCount(keywords, labelType);
         List<BaseLabel> list = new ArrayList<>();
         if (count > 0) {
-            list = baseLabelMapper.queryLabelList(pageable);
+            list = baseLabelMapper.queryLabelList(pageable, keywords, labelType);
         }
         return ResponseBodyInfo.success(new PageImpl<BaseLabel>(list, pageable, count));
     }

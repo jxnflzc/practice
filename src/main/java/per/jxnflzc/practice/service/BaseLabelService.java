@@ -5,7 +5,7 @@ import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 
 public interface BaseLabelService {
-    ResponseBodyInfo queryLabelList(Pageable pageable);
+    ResponseBodyInfo queryLabelList(Pageable pageable, String keywords, String labelType);
 
     ResponseBodyInfo queryLabel(String labelId);
 

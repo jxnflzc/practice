@@ -23,6 +23,9 @@ public class BaseLabel extends BaseModel {
     @ApiModelProperty(value = "标签类型")
     private LabelType labelType;
 
+    @ApiModelProperty(value = "标签red")
+    private Double labelHot;
+
     public String getLabelId() {
         return labelId;
     }
@@ -63,6 +66,14 @@ public class BaseLabel extends BaseModel {
         this.labelType = labelType;
     }
 
+    public Double getLabelHot() {
+        return labelHot;
+    }
+
+    public void setLabelHot(Double labelHot) {
+        this.labelHot = labelHot;
+    }
+
     @Override
     public String toString() {
         return "BaseLabel{" +
@@ -71,6 +82,7 @@ public class BaseLabel extends BaseModel {
                 ", labelValue='" + labelValue + '\'' +
                 ", labelValues=" + labelValues +
                 ", labelType=" + labelType +
+                ", labelHot='" + labelHot + '\'' +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdTime=" + createdTime +
                 ", updatedBy='" + updatedBy + '\'' +

@@ -38,8 +38,10 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/queryLabelList", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo queryLabelList(Pageable pageable) {
-        return baseLabelService.queryLabelList(pageable);
+    public ResponseBodyInfo queryLabelList(Pageable pageable,
+                                           @RequestParam(value = "keywords", required = false) String keywords,
+                                           @RequestParam(value = "labelType", required = false) String labelType) {
+        return baseLabelService.queryLabelList(pageable, keywords, labelType);
     }
 
     @ApiOperation(value = "添加基础标签")
