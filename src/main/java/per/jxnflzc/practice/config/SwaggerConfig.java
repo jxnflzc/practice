@@ -35,7 +35,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder().title("Practice接口文档")
                 .description("这是用Swagger动态生成的接口文档")
                 .contact(
-                        new Contact("jxnflzc", "http://120.78.141.62", "245186727@qq.com")
+                        new Contact("jxnflzc", "", "245186727@qq.com")
                 )
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
