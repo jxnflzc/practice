@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.CurrentUser;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
+import per.jxnflzc.practice.model.enums.ResponseCode;
 import per.jxnflzc.practice.util.RedisUtil;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -86,7 +88,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         try (PrintWriter writer = response.getWriter()) {
-            ResponseBodyInfo result = ResponseBodyInfo.error("未登录或登录超时");
+            ResponseBodyInfo result = ResponseBodyInfo.build(ResponseCode.NOT_LOGIN);
             writer.print(JSON.toJSONString(result));
         } catch (IOException e) {
             LOGGER.error("拦截器输出流异常:{}", e.toString());

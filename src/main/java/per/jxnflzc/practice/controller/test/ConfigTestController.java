@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 
 @Api(tags = {"配置功能测试接口"})
 @RestController
-@RequestMapping("/test/v1/conf")
+@RequestMapping("/practice/test/v1/conf")
 public class ConfigTestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigTestController.class);
 

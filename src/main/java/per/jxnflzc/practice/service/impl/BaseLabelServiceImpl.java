@@ -86,4 +86,24 @@ public class BaseLabelServiceImpl implements BaseLabelService {
             return ResponseBodyInfo.error("保存失败");
         }
     }
+
+    @Override
+    public ResponseBodyInfo queryLabel(String labelId) {
+        BaseLabel baseLabel = baseLabelMapper.selectByPrimaryKey(labelId);
+        if (baseLabel != null) {
+            return ResponseBodyInfo.success(baseLabel);
+        } else {
+            return ResponseBodyInfo.error("标签不存在");
+        }
+    }
+
+    @Override
+    public ResponseBodyInfo deleteLabel(String labelId) {
+        int count = baseLabelMapper.deleteByPrimaryKey(labelId);
+        if (count > 0) {
+            return ResponseBodyInfo.success("删除成功");
+        } else {
+            return ResponseBodyInfo.error("删除失败");
+        }
+    }
 }

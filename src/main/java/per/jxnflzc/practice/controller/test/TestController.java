@@ -16,7 +16,7 @@ import per.jxnflzc.practice.util.PracticeUtil;
 
 @Api(tags = {"功能测试接口"})
 @RestController
-@RequestMapping("/test/v1")
+@RequestMapping("/practice/test/v1")
 public class TestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 

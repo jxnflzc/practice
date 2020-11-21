@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
+import per.jxnflzc.practice.model.enums.LabelType;
 import per.jxnflzc.practice.service.BaseLabelService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Api(tags = {"基础标签相关"})
 @RestController
-@RequestMapping("/label")
+@RequestMapping("/practice/label")
 public class BaseLabelController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseLabelController.class);
 
@@ -45,5 +50,37 @@ public class BaseLabelController {
     @PostMapping(value = "/saveLabel")
     public ResponseBodyInfo saveLabel(@RequestBody BaseLabel baseLabel) {
         return baseLabelService.saveLabel(baseLabel);
+    }
+
+    @ApiOperation(value = "查询基础标签分类")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/queryLabelTypeList")
+    public ResponseBodyInfo queryLabelTypeList() {
+        LabelType[] enums = LabelType.class.getEnumConstants();
+        List<LabelType> labelTypeList = new ArrayList<>(Arrays.asList(enums));
+        return ResponseBodyInfo.success(labelTypeList);
+    }
+
+    @ApiOperation(value = "查询基础标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/queryLabel")
+    public ResponseBodyInfo queryLabel(@RequestParam("labelId") String labelId) {
+        return baseLabelService.queryLabel(labelId);
+    }
+
+    @ApiOperation(value = "删除基础标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/deleteLabel")
+    public ResponseBodyInfo deleteLabel(@RequestParam("labelId") String labelId) {
+        return baseLabelService.deleteLabel(labelId);
     }
 }

@@ -7,5 +7,9 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 public interface BaseLabelService {
     ResponseBodyInfo queryLabelList(Pageable pageable);
 
+    ResponseBodyInfo queryLabel(String labelId);
+
+    ResponseBodyInfo deleteLabel(String labelId);
+
     ResponseBodyInfo saveLabel(BaseLabel baseLabel);
 }

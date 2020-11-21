@@ -15,7 +15,7 @@ import java.util.List;
 
 @Api(tags = {"ES图书接口"})
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/practice/book")
 public class BookController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 

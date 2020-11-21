@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Api(tags = {"用户信息相关"})
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/practice/user")
 public class UserController {
     private UserService userService;
 

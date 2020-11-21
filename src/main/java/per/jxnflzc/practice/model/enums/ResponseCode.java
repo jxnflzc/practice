@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum ResponseCode implements CodeEnum {
     SUCCESS("200", "请求成功"),
     PARAM_ERROR("400", "参数错误"),
+    NOT_LOGIN("888", "未登录或登录超时"),
     FAIL("999", "请求失败");
 
     private String code;
