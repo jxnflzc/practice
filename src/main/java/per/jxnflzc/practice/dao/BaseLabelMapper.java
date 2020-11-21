@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import per.jxnflzc.practice.model.BaseLabel;
+import per.jxnflzc.practice.model.LabelTypeCountLabel;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface BaseLabelMapper {
     List<BaseLabel> queryLabelList(@Param("pageable") Pageable pageable,
                                    @Param("keywords") String keywords,
                                    @Param("labelType") String labelType);
+
+    List<LabelTypeCountLabel> queryLabelTypeCount();
 
     int queryLabelListCount(@Param("keywords") String keywords, @Param("labelType") String labelType);
 

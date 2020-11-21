@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum LabelType implements CodeEnum {
     STRING("S", "字符型"),
+    BOOLEAN("B", "布尔型"),
     NUMBER("N", "数字型");
 
     private String code;

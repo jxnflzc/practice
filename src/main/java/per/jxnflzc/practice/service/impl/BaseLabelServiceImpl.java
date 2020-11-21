@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 import per.jxnflzc.practice.dao.BaseLabelMapper;
 import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
@@ -105,5 +106,10 @@ public class BaseLabelServiceImpl implements BaseLabelService {
         } else {
             return ResponseBodyInfo.error("删除失败");
         }
+    }
+
+    @Override
+    public ResponseBodyInfo queryLabelTypeCount() {
+        return ResponseBodyInfo.success(baseLabelMapper.queryLabelTypeCount());
     }
 }

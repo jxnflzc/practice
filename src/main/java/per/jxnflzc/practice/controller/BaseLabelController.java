@@ -85,4 +85,14 @@ public class BaseLabelController {
     public ResponseBodyInfo deleteLabel(@RequestParam("labelId") String labelId) {
         return baseLabelService.deleteLabel(labelId);
     }
+
+    @ApiOperation(value = "查询标签分类数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/queryLabelTypeCount")
+    public ResponseBodyInfo queryLabelTypeCount() {
+        return baseLabelService.queryLabelTypeCount();
+    }
 }

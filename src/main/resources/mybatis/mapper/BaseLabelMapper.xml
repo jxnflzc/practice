@@ -13,6 +13,10 @@
     <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="LabelTypeResultMap" type="per.jxnflzc.practice.model.LabelTypeCountLabel" >
+    <result column="label_type" property="labelType" typeHandler="per.jxnflzc.practice.handler.CodeEnumTypeHandler"/>
+    <result column="count" property="count" jdbcType="INTEGER"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     label_id, label_name, label_value, label_type, label_hot, created_by, created_time, updated_by, updated_time
   </sql>
@@ -38,7 +42,7 @@
   </select>
   <select id="queryLabelListCount" resultType="int">
     select
-     count(1)
+    count(1)
     from base_label
     where 1 = 1
     <if test="keywords != null and keywords != ''">
@@ -47,6 +51,13 @@
     <if test="labelType != null and labelType != ''">
       and label_type = #{labelType,jdbcType=VARCHAR}
     </if>
+  </select>
+  <select id="queryLabelTypeCount" resultMap="LabelTypeResultMap">
+    select
+        count(1) as count,
+        label_type
+    from base_label
+    group by label_type
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from base_label
