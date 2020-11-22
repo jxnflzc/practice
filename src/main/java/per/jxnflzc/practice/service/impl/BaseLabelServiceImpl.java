@@ -8,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ResponseBody;
 import per.jxnflzc.practice.dao.BaseLabelMapper;
 import per.jxnflzc.practice.model.BaseLabel;
+import per.jxnflzc.practice.model.PracticeLog;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
+import per.jxnflzc.practice.model.enums.LogType;
 import per.jxnflzc.practice.service.BaseLabelService;
+import per.jxnflzc.practice.service.PracticeLogService;
 import per.jxnflzc.practice.util.IdUtil;
 import per.jxnflzc.practice.util.PracticeUtil;
 import per.jxnflzc.practice.util.SequenceUtil;
@@ -28,6 +30,8 @@ public class BaseLabelServiceImpl implements BaseLabelService {
 
     private BaseLabelMapper baseLabelMapper;
 
+    private PracticeLogService practiceLogService;
+
     private IdUtil idUtil;
 
     private SequenceUtil sequenceUtil;
@@ -37,6 +41,11 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     @Autowired
     public void setBaseLabelMapper(BaseLabelMapper baseLabelMapper) {
         this.baseLabelMapper = baseLabelMapper;
+    }
+
+    @Autowired
+    public void setPracticeLogService(PracticeLogService practiceLogService) {
+        this.practiceLogService = practiceLogService;
     }
 
     @Autowired
@@ -74,13 +83,23 @@ public class BaseLabelServiceImpl implements BaseLabelService {
         Date now = new Date();
         baseLabel.setUpdatedBy(userId);
         baseLabel.setUpdatedTime(now);
+
+        StringBuffer sb = new StringBuffer();
+
         if (first) {
+            sb.append("添加标签：");
             baseLabel.setCreatedBy(userId);
             baseLabel.setCreatedTime(now);
             count = baseLabelMapper.insertSelective(baseLabel);
         } else {
+            sb.append("修改标签：");
             count = baseLabelMapper.updateByPrimaryKeySelective(baseLabel);
         }
+
+        sb.append(baseLabel.getLabelName());
+        PracticeLog log = practiceLogService.generatorLog(LogType.LABEL, sb.toString(), userId);
+        practiceLogService.saveLog(log);
+
         if (count > 0) {
             return ResponseBodyInfo.success("保存成功");
         } else {

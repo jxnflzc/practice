@@ -24,9 +24,9 @@ public interface BaseLabelMapper {
                                    @Param("keywords") String keywords,
                                    @Param("labelType") String labelType);
 
-    List<LabelTypeCountLabel> queryLabelTypeCount();
-
     int queryLabelListCount(@Param("keywords") String keywords, @Param("labelType") String labelType);
+
+    List<LabelTypeCountLabel> queryLabelTypeCount();
 
     int updateByPrimaryKeySelective(BaseLabel record);
 
