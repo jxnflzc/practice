@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseBodyInfo register(UserSign userSign) {
-        ResponseBodyInfo<Object> result;
+    public ResponseBodyInfo<UserSign> register(UserSign userSign) {
+        ResponseBodyInfo<UserSign> result;
         UserSign exist = userSignMapper.selectByPrimaryKey(userSign.getUserId());
         if (exist == null) {
             UserInfo userInfo = new UserInfo();
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseBodyInfo login(UserSign userSign) {
-        ResponseBodyInfo<Object> result;
+    public ResponseBodyInfo<String> login(UserSign userSign) {
+        ResponseBodyInfo<String> result;
         UserSign exist = userSignMapper.login(userSign);
         if (exist == null) {
             result = ResponseBodyInfo.error("登录失败");
@@ -88,8 +88,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseBodyInfo generatorCurrentUser(String userId) {
-        ResponseBodyInfo<Object> result;
+    public ResponseBodyInfo<CurrentUser> generatorCurrentUser(String userId) {
+        ResponseBodyInfo<CurrentUser> result;
         CurrentUser currentUser = userInfoMapper.generatorCurrentUser(userId);
         if (currentUser != null) {
             result = ResponseBodyInfo.success(currentUser);

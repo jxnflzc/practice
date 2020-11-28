@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface PracticeLogService {
-    ResponseBodyInfo saveLog(PracticeLog practiceLog);
+    ResponseBodyInfo<String> saveLog(PracticeLog practiceLog);
 
     PracticeLog generatorLog(LogType logType, String content, String userId);
 
-    ResponseBodyInfo queryLogList(Pageable pageable, String keywords, String logType);
+    ResponseBodyInfo<PageImpl<PracticeLog>> queryLogList(Pageable pageable, String keywords, String logType);
 }

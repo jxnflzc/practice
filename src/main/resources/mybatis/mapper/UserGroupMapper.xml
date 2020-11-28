@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.jxnflzc.practice.dao.UserGroupMapper" >
+  <resultMap id="BaseResultMap" type="per.jxnflzc.practice.model.UserGroup" >
+    <id column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="group_desc" property="groupDesc" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="per.jxnflzc.practice.model.UserGroup" extends="BaseResultMap" >
+    <result column="tags" property="tags" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    group_id, group_name, group_desc, created_by, created_time, updated_by, updated_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    tags
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_group
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryUserGroupList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_group
+<!--    where 1 = 1-->
+<!--    <if test="keywords != null and keywords != ''">-->
+<!--      and (label_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or label_name like concat('%',#{keywords,jdbcType=VARCHAR},'%'))-->
+<!--    </if>-->
+<!--    <if test="labelType != null and labelType != ''">-->
+<!--      and label_type = #{labelType,jdbcType=VARCHAR}-->
+<!--    </if>-->
+    limit #{pageable.size} offset #{pageable.offset}
+  </select>
+  <select id="queryUserGroupListCount" resultType="int">
+    select
+    count(1)
+    from user_group
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_group
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="per.jxnflzc.practice.model.UserGroup" >
+    insert into user_group (group_id, group_name, group_desc,
+      created_by, created_time, updated_by,
+      updated_time, tags)
+    values (#{groupId,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{groupDesc,jdbcType=VARCHAR},
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+      #{updatedTime,jdbcType=TIMESTAMP}, #{tags,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="per.jxnflzc.practice.model.UserGroup" >
+    insert into user_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="groupDesc != null" >
+        group_desc,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDesc != null" >
+        #{groupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="per.jxnflzc.practice.model.UserGroup" >
+    update user_group
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDesc != null" >
+        group_desc = #{groupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="per.jxnflzc.practice.model.UserGroup" >
+    update user_group
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      group_desc = #{groupDesc,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      tags = #{tags,jdbcType=LONGVARCHAR}
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="per.jxnflzc.practice.model.UserGroup" >
+    update user_group
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      group_desc = #{groupDesc,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </update>
+</mapper>

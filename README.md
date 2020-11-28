@@ -1,6 +1,6 @@
 # PRACTICE README
 
-[![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)](https://github.com/jxnflzc/practice)
+[![Version](https://img.shields.io/badge/Version-1.0.1-brightgreen.svg)](https://github.com/jxnflzc/practice)
 <br/>
 [![License](https://img.shields.io/badge/License-GPLv3.0-blue)](https://github.com/jxnflzc/practice/blob/master/LICENSE)
 
@@ -47,8 +47,5 @@ spring.redis.timeout=300
 #测试信息
 test.info.name = {name}
 test.info.version = ${practice.version}
-
-#其他
-test.hello = Hello World
 ```
 

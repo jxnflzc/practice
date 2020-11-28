@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
+import per.jxnflzc.practice.model.CurrentUser;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserSign;
 import per.jxnflzc.practice.model.enums.ResponseCode;
@@ -34,7 +35,7 @@ public class UserController {
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo register(@Valid @RequestBody  @ApiParam(value = "用户账号密码") UserSign userSign) {
+    public ResponseBodyInfo<UserSign> register(@Valid @RequestBody  @ApiParam(value = "用户账号密码") UserSign userSign) {
         if (validateUserSign(userSign)) {
             return userService.register(userSign);
         }
@@ -43,7 +44,7 @@ public class UserController {
 
     @ApiOperation(value = "用户登录")
     @PostMapping(value = "/login")
-    public ResponseBodyInfo login(@RequestBody @ApiParam(value = "用户账号密码") UserSign userSign) {
+    public ResponseBodyInfo<String> login(@RequestBody @ApiParam(value = "用户账号密码") UserSign userSign) {
         if (validateUserSign(userSign)) {
             return userService.login(userSign);
         }
@@ -61,7 +62,7 @@ public class UserController {
     })
     @NeedLogin
     @GetMapping(value = "/logout")
-    public ResponseBodyInfo logout() {
+    public ResponseBodyInfo<String> logout() {
         String token = PracticeUtil.getInstance().getCurrentUserToken();
         redisUtil.del(token);
         return ResponseBodyInfo.success("登出成功");
@@ -73,7 +74,7 @@ public class UserController {
     })
     @NeedLogin
     @GetMapping(value = "/info")
-    public ResponseBodyInfo info() {
+    public ResponseBodyInfo<CurrentUser> info() {
         String userId = PracticeUtil.getInstance().getCurrentUserId();
         return userService.generatorCurrentUser(userId);
     }
@@ -84,7 +85,7 @@ public class UserController {
     })
     @NeedLogin
     @GetMapping(value = "/auth")
-    public ResponseBodyInfo auth() {
+    public ResponseBodyInfo<String> auth() {
         String permission = PracticeUtil.getInstance().getCurrentUserPermission();
         return ResponseBodyInfo.success(permission);
     }

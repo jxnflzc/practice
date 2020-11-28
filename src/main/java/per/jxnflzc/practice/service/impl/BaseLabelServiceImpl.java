@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import per.jxnflzc.practice.dao.BaseLabelMapper;
 import per.jxnflzc.practice.model.BaseLabel;
+import per.jxnflzc.practice.model.LabelTypeCountLabel;
 import per.jxnflzc.practice.model.PracticeLog;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.enums.LogType;
@@ -59,7 +60,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo queryLabelList(Pageable pageable, String keywords, String labelType) {
+    public ResponseBodyInfo<PageImpl<BaseLabel>> queryLabelList(Pageable pageable, String keywords, String labelType) {
         int count = baseLabelMapper.queryLabelListCount(keywords, labelType);
         List<BaseLabel> list = new ArrayList<>();
         if (count > 0) {
@@ -69,7 +70,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo saveLabel(BaseLabel baseLabel) {
+    public ResponseBodyInfo<String> saveLabel(BaseLabel baseLabel) {
         String labelId = baseLabel.getLabelId();
         boolean first = false;
         if (!StringUtils.hasText(labelId)) {
@@ -108,7 +109,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo queryLabel(String labelId) {
+    public ResponseBodyInfo<BaseLabel> queryLabel(String labelId) {
         BaseLabel baseLabel = baseLabelMapper.selectByPrimaryKey(labelId);
         if (baseLabel != null) {
             return ResponseBodyInfo.success(baseLabel);
@@ -118,7 +119,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo deleteLabel(String labelId) {
+    public ResponseBodyInfo<String> deleteLabel(String labelId) {
         int count = baseLabelMapper.deleteByPrimaryKey(labelId);
         if (count > 0) {
             return ResponseBodyInfo.success("删除成功");
@@ -128,7 +129,7 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     }
 
     @Override
-    public ResponseBodyInfo queryLabelTypeCount() {
+    public ResponseBodyInfo<List<LabelTypeCountLabel>> queryLabelTypeCount() {
         return ResponseBodyInfo.success(baseLabelMapper.queryLabelTypeCount());
     }
 }

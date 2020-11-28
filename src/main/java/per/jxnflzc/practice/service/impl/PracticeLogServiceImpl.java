@@ -39,7 +39,7 @@ public class PracticeLogServiceImpl implements PracticeLogService {
     }
 
     @Override
-    public ResponseBodyInfo queryLogList(Pageable pageable, String keywords, String logType) {
+    public ResponseBodyInfo<PageImpl<PracticeLog>> queryLogList(Pageable pageable, String keywords, String logType) {
         int count = practiceLogMapper.queryLogListCount(keywords, logType);
         List<PracticeLog> list = new ArrayList<>();
         if (count > 0) {
@@ -49,7 +49,7 @@ public class PracticeLogServiceImpl implements PracticeLogService {
     }
 
     @Override
-    public ResponseBodyInfo saveLog(PracticeLog practiceLog) {
+    public ResponseBodyInfo<String> saveLog(PracticeLog practiceLog) {
         int count = practiceLogMapper.insertSelective(practiceLog);
         if (count > 0) {
             return ResponseBodyInfo.success("保存成功");

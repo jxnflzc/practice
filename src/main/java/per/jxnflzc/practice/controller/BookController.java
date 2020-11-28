@@ -28,7 +28,7 @@ public class BookController {
 
     @ApiOperation(value = "添加图书")
     @PostMapping(value = "/add")
-    public ResponseBodyInfo add(@RequestBody Book book) {
+    public ResponseBodyInfo<String> add(@RequestBody Book book) {
         LOGGER.debug("book:{}",book);
         try {
             bookRepository.save(book);
@@ -40,7 +40,7 @@ public class BookController {
 
     @ApiOperation(value = "通过id获取图书")
     @GetMapping(value = "/id/{id}")
-    public ResponseBodyInfo queryById(@PathVariable("id") String id) {
+    public ResponseBodyInfo<Book> queryById(@PathVariable("id") String id) {
         LOGGER.debug("id:{}",id);
         Book book = null;
         try {
@@ -53,7 +53,7 @@ public class BookController {
 
     @ApiOperation(value = "通过名称获取图书")
     @GetMapping(value = "/name/{name}")
-    public ResponseBodyInfo queryByName(@PathVariable("name") String name) {
+    public ResponseBodyInfo<Book> queryByName(@PathVariable("name") String name) {
         LOGGER.debug("name:{}",name);
         Book book = null;
         try {
@@ -66,7 +66,7 @@ public class BookController {
 
     @ApiOperation(value = "通过作者获取图书")
     @GetMapping(value = "/author/{author}")
-    public ResponseBodyInfo queryByAuthor(@PathVariable("author") String author) {
+    public ResponseBodyInfo<List<Book>> queryByAuthor(@PathVariable("author") String author) {
         LOGGER.debug("author:{}",author);
         List<Book> books = new ArrayList<>();
         try {

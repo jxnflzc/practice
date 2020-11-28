@@ -5,9 +5,9 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserSign;
 
 public interface UserService {
-    ResponseBodyInfo register(UserSign userSign);
+    ResponseBodyInfo<UserSign> register(UserSign userSign);
 
-    ResponseBodyInfo login(UserSign userSign);
+    ResponseBodyInfo<String> login(UserSign userSign);
 
-    ResponseBodyInfo generatorCurrentUser(String userId);
+    ResponseBodyInfo<CurrentUser> generatorCurrentUser(String userId);
 }

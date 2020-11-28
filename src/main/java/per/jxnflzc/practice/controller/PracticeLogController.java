@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.BaseLabel;
+import per.jxnflzc.practice.model.PracticeLog;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.enums.LabelType;
 import per.jxnflzc.practice.model.enums.LogType;
@@ -41,9 +43,9 @@ public class PracticeLogController {
     })
     @NeedLogin(permission = PermissionType.ADMIN)
     @GetMapping(value = "/queryLogList", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo queryLogList(Pageable pageable,
-                                         @RequestParam(value = "keywords", required = false) String keywords,
-                                         @RequestParam(value = "logType", required = false) String logType) {
+    public ResponseBodyInfo<PageImpl<PracticeLog>> queryLogList(Pageable pageable,
+                                                                @RequestParam(value = "keywords", required = false) String keywords,
+                                                                @RequestParam(value = "logType", required = false) String logType) {
         return practiceLogService.queryLogList(pageable, keywords, logType);
     }
 
@@ -53,7 +55,7 @@ public class PracticeLogController {
     })
     @NeedLogin(permission = PermissionType.ADMIN)
     @GetMapping(value = "/queryLogTypeList")
-    public ResponseBodyInfo queryLogTypeList() {
+    public ResponseBodyInfo<List<LogType>> queryLogTypeList() {
         LogType[] enums = LogType.class.getEnumConstants();
         List<LogType> logTypeList = new ArrayList<>(Arrays.asList(enums));
         return ResponseBodyInfo.success(logTypeList);

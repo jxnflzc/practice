@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.BaseLabel;
+import per.jxnflzc.practice.model.LabelTypeCountLabel;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.enums.LabelType;
 import per.jxnflzc.practice.service.BaseLabelService;
@@ -38,9 +40,9 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/queryLabelList", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo queryLabelList(Pageable pageable,
-                                           @RequestParam(value = "keywords", required = false) String keywords,
-                                           @RequestParam(value = "labelType", required = false) String labelType) {
+    public ResponseBodyInfo<PageImpl<BaseLabel>> queryLabelList(Pageable pageable,
+                                                                @RequestParam(value = "keywords", required = false) String keywords,
+                                                                @RequestParam(value = "labelType", required = false) String labelType) {
         return baseLabelService.queryLabelList(pageable, keywords, labelType);
     }
 
@@ -50,7 +52,7 @@ public class BaseLabelController {
     })
     @NeedLogin
     @PostMapping(value = "/saveLabel")
-    public ResponseBodyInfo saveLabel(@RequestBody BaseLabel baseLabel) {
+    public ResponseBodyInfo<String> saveLabel(@RequestBody BaseLabel baseLabel) {
         return baseLabelService.saveLabel(baseLabel);
     }
 
@@ -60,7 +62,7 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/queryLabelTypeList")
-    public ResponseBodyInfo queryLabelTypeList() {
+    public ResponseBodyInfo<List<LabelType>> queryLabelTypeList() {
         LabelType[] enums = LabelType.class.getEnumConstants();
         List<LabelType> labelTypeList = new ArrayList<>(Arrays.asList(enums));
         return ResponseBodyInfo.success(labelTypeList);
@@ -72,7 +74,7 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/queryLabel")
-    public ResponseBodyInfo queryLabel(@RequestParam("labelId") String labelId) {
+    public ResponseBodyInfo<BaseLabel> queryLabel(@RequestParam("labelId") String labelId) {
         return baseLabelService.queryLabel(labelId);
     }
 
@@ -82,7 +84,7 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/deleteLabel")
-    public ResponseBodyInfo deleteLabel(@RequestParam("labelId") String labelId) {
+    public ResponseBodyInfo<String> deleteLabel(@RequestParam("labelId") String labelId) {
         return baseLabelService.deleteLabel(labelId);
     }
 
@@ -92,7 +94,7 @@ public class BaseLabelController {
     })
     @NeedLogin
     @GetMapping(value = "/queryLabelTypeCount")
-    public ResponseBodyInfo queryLabelTypeCount() {
+    public ResponseBodyInfo<List<LabelTypeCountLabel>> queryLabelTypeCount() {
         return baseLabelService.queryLabelTypeCount();
     }
 }
