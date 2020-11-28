@@ -1,20 +1,19 @@
 package per.jxnflzc.practice.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize(using = CodeEnumSerializer.class)
-public enum LabelType implements CodeEnum {
-    STRING("S", "字符型"),
-    BOOLEAN("B", "布尔型"),
-    NUMBER("N", "数字型");
+public enum PermissionType implements CodeEnum {
+    VISITOR("V", "游客"),
+    OTHERS("O", "普通用户"),
+    ADMIN("A", "管理员");
 
     private String code;
 
     private String desc;
 
-    LabelType(String code, String desc) {
+    PermissionType(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -28,7 +27,7 @@ public enum LabelType implements CodeEnum {
     }
 
     @JsonCreator
-    public static LabelType fromCode(String code) {
-        return CodeEnum.fromCode(LabelType.class, code);
+    public static PermissionType fromCode(String code) {
+        return CodeEnum.fromCode(PermissionType.class, code);
     }
 }

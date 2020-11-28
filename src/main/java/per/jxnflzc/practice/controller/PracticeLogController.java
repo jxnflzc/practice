@@ -14,6 +14,7 @@ import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.enums.LabelType;
 import per.jxnflzc.practice.model.enums.LogType;
+import per.jxnflzc.practice.model.enums.PermissionType;
 import per.jxnflzc.practice.service.BaseLabelService;
 import per.jxnflzc.practice.service.PracticeLogService;
 
@@ -38,7 +39,7 @@ public class PracticeLogController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
     })
-    @NeedLogin
+    @NeedLogin(permission = PermissionType.ADMIN)
     @GetMapping(value = "/queryLogList", produces = "application/json;charset=utf-8")
     public ResponseBodyInfo queryLogList(Pageable pageable,
                                          @RequestParam(value = "keywords", required = false) String keywords,
@@ -50,7 +51,7 @@ public class PracticeLogController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
     })
-    @NeedLogin
+    @NeedLogin(permission = PermissionType.ADMIN)
     @GetMapping(value = "/queryLogTypeList")
     public ResponseBodyInfo queryLogTypeList() {
         LogType[] enums = LogType.class.getEnumConstants();

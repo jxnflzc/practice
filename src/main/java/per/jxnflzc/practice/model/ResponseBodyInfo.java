@@ -5,6 +5,7 @@ import per.jxnflzc.practice.model.enums.ResponseCode;
 import java.io.Serializable;
 
 public class ResponseBodyInfo<T> implements Serializable {
+    private static final long serialVersionUID = 1367552839931455353L;
     private String code;
     private String message;
     private T data;

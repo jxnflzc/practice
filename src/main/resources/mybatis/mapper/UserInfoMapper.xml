@@ -10,20 +10,24 @@
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
-    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+    <result column="permission" property="userPermission" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
     user_id, user_name, user_gender
   </sql>
   <select id="generatorCurrentUser" resultMap="CurrentUserMap" parameterType="java.lang.String" >
-    select 
+    select
       ui.user_id,
       ui.user_name,
       ui.user_gender,
-      us.user_password
+      us.user_password,
+      up.permission
     from user_info ui
     left join user_sign us
         on us.user_id = ui.user_id
+    left join user_permission up
+        on up.user_id = ui.user_id
     where ui.user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

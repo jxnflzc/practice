@@ -77,4 +77,15 @@ public class UserController {
         String userId = PracticeUtil.getInstance().getCurrentUserId();
         return userService.generatorCurrentUser(userId);
     }
+
+    @ApiOperation(value = "当前用户权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/auth")
+    public ResponseBodyInfo auth() {
+        String permission = PracticeUtil.getInstance().getCurrentUserPermission();
+        return ResponseBodyInfo.success(permission);
+    }
 }

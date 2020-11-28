@@ -11,6 +11,8 @@ public class CurrentUser {
 
     private String userGender;
 
+    private String userPermission;
+
     public String getUid() {
         return uid;
     }
@@ -51,6 +53,14 @@ public class CurrentUser {
         this.userGender = userGender;
     }
 
+    public String getUserPermission() {
+        return userPermission;
+    }
+
+    public void setUserPermission(String userPermission) {
+        this.userPermission = userPermission;
+    }
+
     @Override
     public String toString() {
         return "CurrentUser{" +
@@ -59,6 +69,7 @@ public class CurrentUser {
                 ", userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userGender='" + userGender + '\'' +
+                ", userPermission=" + userPermission +
                 '}';
     }
 }

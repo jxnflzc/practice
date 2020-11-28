@@ -1,7 +1,9 @@
 package per.jxnflzc.practice.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(using = CodeEnumSerializer.class)
 public enum LogType implements CodeEnum {
     LABEL("L", "标签管理");
 

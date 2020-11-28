@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.CurrentUser;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
+import per.jxnflzc.practice.model.enums.PermissionType;
 import per.jxnflzc.practice.model.enums.ResponseCode;
 import per.jxnflzc.practice.util.RedisUtil;
 
@@ -61,13 +62,21 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 String token = request.getHeader(httpHeaderName);
 
                 if (!StringUtils.hasText(token) || !redisUtil.hasKey(token)) {
-                    returnInfo(response);
+                    returnInfo(response, ResponseCode.NOT_LOGIN);
                     return false;
                 } else {
                     CurrentUser currentUser = redisUtil.getCurrentUser(token);
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(currentUser,null);
-                    authentication.setDetails(request);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    String permission = currentUser.getUserPermission();
+                    if (permission.equalsIgnoreCase(PermissionType.ADMIN.getCode()) ||
+                            (permission.equalsIgnoreCase(PermissionType.OTHERS.getCode()) && needLogin.permission().compareTo(PermissionType.OTHERS) <= 0) ||
+                            (permission.equalsIgnoreCase(PermissionType.VISITOR.getCode()) && needLogin.permission().compareTo(PermissionType.VISITOR) <= 0)) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(currentUser, null);
+                        authentication.setDetails(request);
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    } else {
+                        returnInfo(response, ResponseCode.NO_PERMISSION);
+                        return false;
+                    }
                 }
             }
         }
@@ -84,11 +93,11 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     }
 
-    private void returnInfo(HttpServletResponse response){
+    private void returnInfo(HttpServletResponse response, ResponseCode responseCode){
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         try (PrintWriter writer = response.getWriter()) {
-            ResponseBodyInfo result = ResponseBodyInfo.build(ResponseCode.NOT_LOGIN);
+            ResponseBodyInfo result = ResponseBodyInfo.build(responseCode);
             writer.print(JSON.toJSONString(result));
         } catch (IOException e) {
             LOGGER.error("拦截器输出流异常:{}", e.toString());
