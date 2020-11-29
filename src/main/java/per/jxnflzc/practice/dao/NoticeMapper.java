@@ -19,9 +19,12 @@ public interface NoticeMapper {
 
     Notice selectByPrimaryKey(String noticeId);
 
-    List<Notice> queryNoticeList(@Param("pageable") Pageable pageable);
+    List<Notice> queryNoticeList(@Param("pageable") Pageable pageable,
+                                 @Param("keywords") String keywords,
+                                 @Param("noticeLevel") String noticeLevel);
 
-    int queryNoticeListCount();
+    int queryNoticeListCount(@Param("keywords") String keywords,
+                             @Param("noticeLevel") String noticeLevel);
 
     int updateByPrimaryKeySelective(Notice record);
 

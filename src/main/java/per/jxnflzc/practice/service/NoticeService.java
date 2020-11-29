@@ -7,7 +7,7 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserGroup;
 
 public interface NoticeService {
-    ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable, String keywords);
+    ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable, String keywords, String noticeLevel);
 
     ResponseBodyInfo<Notice> queryNotice(String noticeId);
 

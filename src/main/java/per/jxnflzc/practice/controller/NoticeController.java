@@ -44,8 +44,9 @@ public class NoticeController {
     @NeedLogin
     @GetMapping(value = "/queryNoticeList", produces = "application/json;charset=utf-8")
     public ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable,
-                                                              @RequestParam(value = "keywords") String keywords) {
-        return noticeService.queryNoticeList(pageable, keywords);
+                                                              @RequestParam(value = "keywords") String keywords,
+                                                              @RequestParam(value = "noticeLevel") String noticeLevel) {
+        return noticeService.queryNoticeList(pageable, keywords, noticeLevel);
     }
 
     @ApiOperation(value = "查询通知")

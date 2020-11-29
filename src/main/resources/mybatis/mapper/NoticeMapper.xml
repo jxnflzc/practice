@@ -32,6 +32,13 @@
     select
     <include refid="Base_Column_List" />
     from notice
+    where 1 = 1
+    <if test="keywords != null and keywords != ''">
+      and (notice_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or notice_title like concat('%',#{keywords,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="noticeLevel != null and noticeLevel != ''">
+      and notice_level = #{noticeLevel,jdbcType=VARCHAR}
+    </if>
     order by created_time desc
     limit #{pageable.size} offset #{pageable.offset}
   </select>
@@ -39,6 +46,13 @@
     select
     count(1)
     from notice
+    where 1 = 1
+    <if test="keywords != null and keywords != ''">
+      and (notice_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or notice_title like concat('%',#{keywords,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="noticeLevel != null and noticeLevel != ''">
+      and notice_level = #{noticeLevel,jdbcType=VARCHAR}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from notice

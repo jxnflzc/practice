@@ -52,11 +52,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable, String keywords) {
-        int count = noticeMapper.queryNoticeListCount();
+    public ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable, String keywords, String noticeLevel) {
+        int count = noticeMapper.queryNoticeListCount(keywords, noticeLevel);
         List<Notice> list = new ArrayList<>();
         if (count > 0) {
-            list = noticeMapper.queryNoticeList(pageable);
+            list = noticeMapper.queryNoticeList(pageable, keywords, noticeLevel);
         }
         return ResponseBodyInfo.success(new PageImpl<Notice>(list, pageable, count));
     }
