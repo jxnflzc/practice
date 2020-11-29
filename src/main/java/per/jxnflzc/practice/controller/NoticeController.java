@@ -69,4 +69,14 @@ public class NoticeController {
         List<NoticeLevel> noticeLevelList = new ArrayList<>(Arrays.asList(enums));
         return ResponseBodyInfo.success(noticeLevelList);
     }
+
+    @ApiOperation(value = "删除用通知")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/deleteNotice")
+    public ResponseBodyInfo<String> deleteNotice(@RequestParam("noticeId") String noticeId) {
+        return noticeService.deleteNotice(noticeId);
+    }
 }

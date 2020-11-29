@@ -67,7 +67,7 @@ public class UserGroupController {
         return userGroupService.saveGroup(userGroup);
     }
 
-    @ApiOperation(value = "删除基础标签")
+    @ApiOperation(value = "删除用户客群")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
     })

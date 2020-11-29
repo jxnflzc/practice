@@ -70,4 +70,14 @@ public class NoticeServiceImpl implements NoticeService {
             return ResponseBodyInfo.error("通知不存在");
         }
     }
+
+    @Override
+    public ResponseBodyInfo<String> deleteNotice(String noticeId) {
+        int count = noticeMapper.deleteByPrimaryKey(noticeId);
+        if (count > 0) {
+            return ResponseBodyInfo.success("删除成功");
+        } else {
+            return ResponseBodyInfo.error("删除失败");
+        }
+    }
 }

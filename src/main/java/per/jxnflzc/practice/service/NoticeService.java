@@ -10,4 +10,6 @@ public interface NoticeService {
     ResponseBodyInfo<PageImpl<Notice>> queryNoticeList(Pageable pageable, String keywords);
 
     ResponseBodyInfo<Notice> queryNotice(String noticeId);
+
+    ResponseBodyInfo<String> deleteNotice(String noticeId);
 }
