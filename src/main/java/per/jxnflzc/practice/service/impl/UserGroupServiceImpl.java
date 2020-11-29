@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import per.jxnflzc.practice.dao.UserGroupMapper;
-import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.PracticeLog;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserGroup;
@@ -23,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static per.jxnflzc.practice.util.SequenceId.USER_GROUP_ID;
+
 @Service
 @Transactional
 public class UserGroupServiceImpl implements UserGroupService {
@@ -33,8 +34,6 @@ public class UserGroupServiceImpl implements UserGroupService {
     private PracticeLogService practiceLogService;
 
     private SequenceUtil sequenceUtil;
-
-    private static final String USER_GROUP_ID = "user_group.id";
 
     @Autowired
     public void setUserGroupMapper(UserGroupMapper userGroupMapper) {

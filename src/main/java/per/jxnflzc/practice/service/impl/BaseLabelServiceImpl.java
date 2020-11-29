@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static per.jxnflzc.practice.util.SequenceId.BASE_LABEL_ID;
+
 @Service
 @Transactional
 public class BaseLabelServiceImpl implements BaseLabelService {
@@ -36,8 +38,6 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     private IdUtil idUtil;
 
     private SequenceUtil sequenceUtil;
-
-    private static final String BASE_LABEL_ID = "base_label.id";
 
     @Autowired
     public void setBaseLabelMapper(BaseLabelMapper baseLabelMapper) {

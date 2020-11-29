@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.jxnflzc.practice.dao.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="per.jxnflzc.practice.model.Notice" >
+    <id column="notice_id" property="noticeId" jdbcType="VARCHAR" />
+    <result column="notice_title" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="notice_level" property="noticeLevel" typeHandler="per.jxnflzc.practice.handler.CodeEnumTypeHandler"/>
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="per.jxnflzc.practice.model.Notice" extends="BaseResultMap" >
+    <result column="notice_content" property="noticeContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    notice_id, notice_title, notice_level, created_by, created_time, updated_by, updated_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    notice_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    where notice_id = #{noticeId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryNoticeList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from notice
+    order by created_time desc
+    limit #{pageable.size} offset #{pageable.offset}
+  </select>
+  <select id="queryNoticeListCount" resultType="int">
+    select
+    count(1)
+    from notice
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from notice
+    where notice_id = #{noticeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="per.jxnflzc.practice.model.Notice" >
+    insert into notice (notice_id, notice_title, notice_level,
+      created_by, created_time, updated_by,
+      updated_time, notice_content)
+    values (#{noticeId,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeLevel,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+      #{updatedTime,jdbcType=TIMESTAMP}, #{noticeContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="per.jxnflzc.practice.model.Notice" >
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        notice_id,
+      </if>
+      <if test="noticeTitle != null" >
+        notice_title,
+      </if>
+      <if test="noticeLevel != null" >
+        notice_level,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="noticeContent != null" >
+        notice_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeLevel != null" >
+        #{noticeLevel,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="per.jxnflzc.practice.model.Notice" >
+    update notice
+    <set >
+      <if test="noticeTitle != null" >
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeLevel != null" >
+        notice_level = #{noticeLevel,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null" >
+        notice_content = #{noticeContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="per.jxnflzc.practice.model.Notice" >
+    update notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_level = #{noticeLevel,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      notice_content = #{noticeContent,jdbcType=LONGVARCHAR}
+    where notice_id = #{noticeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="per.jxnflzc.practice.model.Notice" >
+    update notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_level = #{noticeLevel,typeHandler=per.jxnflzc.practice.handler.CodeEnumTypeHandler},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where notice_id = #{noticeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
