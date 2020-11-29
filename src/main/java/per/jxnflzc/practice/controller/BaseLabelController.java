@@ -97,4 +97,14 @@ public class BaseLabelController {
     public ResponseBodyInfo<List<LabelTypeCountLabel>> queryLabelTypeCount() {
         return baseLabelService.queryLabelTypeCount();
     }
+
+    @ApiOperation(value = "查询所有标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/queryAllLabels")
+    public ResponseBodyInfo<List<BaseLabel>> queryAllLabels() {
+        return baseLabelService.queryAllLabels();
+    }
 }

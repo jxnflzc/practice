@@ -41,8 +41,39 @@ public class UserGroupController {
             @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
     })
     @NeedLogin
-    @GetMapping(value = "/queryUserGroupList", produces = "application/json;charset=utf-8")
-    public ResponseBodyInfo<PageImpl<UserGroup>> queryUserGroupList(Pageable pageable) {
-        return userGroupService.queryUserGroupList(pageable);
+    @GetMapping(value = "/queryGroupList", produces = "application/json;charset=utf-8")
+    public ResponseBodyInfo<PageImpl<UserGroup>> queryGroupList(Pageable pageable,
+                                                                @RequestParam(value = "keywords") String keywords) {
+        return userGroupService.queryGroupList(pageable, keywords);
+    }
+
+    @ApiOperation(value = "查询用户客群")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/queryGroup", produces = "application/json;charset=utf-8")
+    public ResponseBodyInfo<UserGroup> queryGroup(String groupId) {
+        return userGroupService.queryGroup(groupId);
+    }
+
+    @ApiOperation(value = "添加用户客群")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @PostMapping(value = "/saveGroup")
+    public ResponseBodyInfo<String> saveGroup(@RequestBody UserGroup userGroup) {
+        return userGroupService.saveGroup(userGroup);
+    }
+
+    @ApiOperation(value = "删除基础标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @GetMapping(value = "/deleteGroup")
+    public ResponseBodyInfo<String> deleteGroup(@RequestParam("groupId") String groupId) {
+        return userGroupService.deleteGroup(groupId);
     }
 }

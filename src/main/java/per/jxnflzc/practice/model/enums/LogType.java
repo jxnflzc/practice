@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize(using = CodeEnumSerializer.class)
 public enum LogType implements CodeEnum {
-    LABEL("L", "标签管理");
+    LABEL("L", "标签管理"),
+    GROUP("G", "客群管理");
 
     private String code;
 

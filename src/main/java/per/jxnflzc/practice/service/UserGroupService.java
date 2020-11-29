@@ -6,5 +6,11 @@ import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserGroup;
 
 public interface UserGroupService {
-    ResponseBodyInfo<PageImpl<UserGroup>> queryUserGroupList(Pageable pageable);
+    ResponseBodyInfo<PageImpl<UserGroup>> queryGroupList(Pageable pageable, String keywords);
+
+    ResponseBodyInfo<UserGroup> queryGroup(String groupId);
+
+    ResponseBodyInfo<String> saveGroup(UserGroup userGroup);
+
+    ResponseBodyInfo<String> deleteGroup(String groupId);
 }

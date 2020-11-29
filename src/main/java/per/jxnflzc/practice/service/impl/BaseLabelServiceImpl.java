@@ -132,4 +132,9 @@ public class BaseLabelServiceImpl implements BaseLabelService {
     public ResponseBodyInfo<List<LabelTypeCountLabel>> queryLabelTypeCount() {
         return ResponseBodyInfo.success(baseLabelMapper.queryLabelTypeCount());
     }
+
+    @Override
+    public ResponseBodyInfo<List<BaseLabel>> queryAllLabels() {
+        return ResponseBodyInfo.success(baseLabelMapper.queryAllLabels());
+    }
 }

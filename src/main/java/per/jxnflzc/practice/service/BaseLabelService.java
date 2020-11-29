@@ -18,4 +18,6 @@ public interface BaseLabelService {
     ResponseBodyInfo<String> saveLabel(BaseLabel baseLabel);
 
     ResponseBodyInfo<List<LabelTypeCountLabel>> queryLabelTypeCount();
+
+    ResponseBodyInfo<List<BaseLabel>> queryAllLabels();
 }

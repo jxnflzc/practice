@@ -19,9 +19,10 @@ public interface UserGroupMapper {
 
     UserGroup selectByPrimaryKey(String groupId);
 
-    List<UserGroup> queryUserGroupList(@Param("pageable") Pageable pageable);
+    List<UserGroup> queryGroupList(@Param("pageable") Pageable pageable,
+                                   @Param("keywords") String keywords);
 
-    int queryUserGroupListCount();
+    int queryGroupListCount(@Param("keywords") String keywords);
 
     int updateByPrimaryKeySelective(UserGroup record);
 

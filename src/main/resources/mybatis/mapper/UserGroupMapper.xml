@@ -28,25 +28,27 @@
     where group_id = #{groupId,jdbcType=VARCHAR}
   </select>
 
-  <select id="queryUserGroupList" resultMap="BaseResultMap">
+  <select id="queryGroupList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from user_group
-<!--    where 1 = 1-->
-<!--    <if test="keywords != null and keywords != ''">-->
-<!--      and (label_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or label_name like concat('%',#{keywords,jdbcType=VARCHAR},'%'))-->
-<!--    </if>-->
-<!--    <if test="labelType != null and labelType != ''">-->
-<!--      and label_type = #{labelType,jdbcType=VARCHAR}-->
-<!--    </if>-->
+    where 1 = 1
+    <if test="keywords != null and keywords != ''">
+      and (group_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or group_name like concat('%',#{keywords,jdbcType=VARCHAR},'%'))
+    </if>
+    order by created_time desc
     limit #{pageable.size} offset #{pageable.offset}
   </select>
-  <select id="queryUserGroupListCount" resultType="int">
+  <select id="queryGroupListCount" resultType="int">
     select
     count(1)
     from user_group
+    where 1 = 1
+    <if test="keywords != null and keywords != ''">
+      and (group_id like concat('%',#{keywords,jdbcType=VARCHAR},'%') or group_name like concat('%',#{keywords,jdbcType=VARCHAR},'%'))
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_group

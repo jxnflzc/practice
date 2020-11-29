@@ -20,6 +20,9 @@
   <sql id="Base_Column_List" >
     label_id, label_name, label_value, label_type, label_hot, created_by, created_time, updated_by, updated_time
   </sql>
+  <sql id="All_Column_List" >
+    label_id, label_name
+  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
@@ -58,6 +61,12 @@
         label_type
     from base_label
     group by label_type
+  </select>
+  <select id="queryAllLabels" resultMap="BaseResultMap">
+    select
+    <include refid="All_Column_List" />
+    from base_label
+    order by label_hot desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from base_label

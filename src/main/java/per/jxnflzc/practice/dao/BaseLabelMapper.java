@@ -28,6 +28,8 @@ public interface BaseLabelMapper {
 
     List<LabelTypeCountLabel> queryLabelTypeCount();
 
+    List<BaseLabel> queryAllLabels();
+
     int updateByPrimaryKeySelective(BaseLabel record);
 
     int updateByPrimaryKey(BaseLabel record);
