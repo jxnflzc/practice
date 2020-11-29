@@ -70,7 +70,7 @@ public class NoticeController {
         return ResponseBodyInfo.success(noticeLevelList);
     }
 
-    @ApiOperation(value = "删除用通知")
+    @ApiOperation(value = "删除通知")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
     })
