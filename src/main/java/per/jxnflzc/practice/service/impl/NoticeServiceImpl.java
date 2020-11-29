@@ -9,21 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import per.jxnflzc.practice.dao.NoticeMapper;
-import per.jxnflzc.practice.dao.UserGroupMapper;
 import per.jxnflzc.practice.model.Notice;
 import per.jxnflzc.practice.model.PracticeLog;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
-import per.jxnflzc.practice.model.UserGroup;
 import per.jxnflzc.practice.model.enums.LogType;
 import per.jxnflzc.practice.service.NoticeService;
 import per.jxnflzc.practice.service.PracticeLogService;
-import per.jxnflzc.practice.service.UserGroupService;
 import per.jxnflzc.practice.util.PracticeUtil;
 import per.jxnflzc.practice.util.SequenceUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static per.jxnflzc.practice.util.SequenceId.NOTICE_ID;
 
 @Service
 @Transactional
@@ -78,6 +77,45 @@ public class NoticeServiceImpl implements NoticeService {
             return ResponseBodyInfo.success("删除成功");
         } else {
             return ResponseBodyInfo.error("删除失败");
+        }
+    }
+
+    @Override
+    public ResponseBodyInfo<String> saveNotice(Notice notice) {
+        String noticeId = notice.getNoticeId();
+        boolean first = false;
+        if (!StringUtils.hasText(noticeId)) {
+            first = true;
+            noticeId = sequenceUtil.generatorId(NOTICE_ID);
+            notice.setNoticeId(noticeId);
+        }
+
+        int count;
+        String userId = PracticeUtil.getInstance().getCurrentUserId();
+        Date now = new Date();
+        notice.setUpdatedBy(userId);
+        notice.setUpdatedTime(now);
+
+        StringBuffer sb = new StringBuffer();
+
+        if (first) {
+            sb.append("添加通知：");
+            notice.setCreatedBy(userId);
+            notice.setCreatedTime(now);
+            count = noticeMapper.insertSelective(notice);
+        } else {
+            sb.append("修改通知：");
+            count = noticeMapper.updateByPrimaryKeySelective(notice);
+        }
+
+        sb.append(notice.getNoticeTitle());
+        PracticeLog log = practiceLogService.generatorLog(LogType.NOTICE, sb.toString(), userId);
+        practiceLogService.saveLog(log);
+
+        if (count > 0) {
+            return ResponseBodyInfo.success("保存成功");
+        } else {
+            return ResponseBodyInfo.error("保存失败");
         }
     }
 }

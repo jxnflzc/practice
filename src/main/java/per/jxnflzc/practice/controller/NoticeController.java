@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
+import per.jxnflzc.practice.model.BaseLabel;
 import per.jxnflzc.practice.model.Notice;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
 import per.jxnflzc.practice.model.UserGroup;
@@ -79,5 +80,15 @@ public class NoticeController {
     @GetMapping(value = "/deleteNotice")
     public ResponseBodyInfo<String> deleteNotice(@RequestParam("noticeId") String noticeId) {
         return noticeService.deleteNotice(noticeId);
+    }
+
+    @ApiOperation(value = "添加通知")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", required = true, paramType = "header")
+    })
+    @NeedLogin
+    @PostMapping(value = "/saveNotice")
+    public ResponseBodyInfo<String> saveNotice(@RequestBody Notice notice) {
+        return noticeService.saveNotice(notice);
     }
 }

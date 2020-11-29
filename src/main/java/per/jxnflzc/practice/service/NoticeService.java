@@ -12,4 +12,6 @@ public interface NoticeService {
     ResponseBodyInfo<Notice> queryNotice(String noticeId);
 
     ResponseBodyInfo<String> deleteNotice(String noticeId);
+
+    ResponseBodyInfo<String> saveNotice(Notice notice);
 }
