@@ -20,4 +20,12 @@ public class UserPermission {
     public void setPermission(String permission) {
         this.permission = permission == null ? null : permission.trim();
     }
+
+    @Override
+    public String toString() {
+        return "UserPermission{" +
+                "userId='" + userId + '\'' +
+                ", permission='" + permission + '\'' +
+                '}';
+    }
 }

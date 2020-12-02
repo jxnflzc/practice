@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import per.jxnflzc.practice.anno.NeedLogin;
 import per.jxnflzc.practice.model.CurrentUser;
 import per.jxnflzc.practice.model.ResponseBodyInfo;
+import per.jxnflzc.practice.model.UserInfo;
 import per.jxnflzc.practice.model.UserSign;
 import per.jxnflzc.practice.model.enums.ResponseCode;
 import per.jxnflzc.practice.service.UserService;
@@ -49,6 +50,12 @@ public class UserController {
             return userService.login(userSign);
         }
         return ResponseBodyInfo.build(ResponseCode.PARAM_ERROR);
+    }
+
+    @ApiOperation(value = "用户修改信息")
+    @PostMapping(value = "/updateUserInfo")
+    public ResponseBodyInfo<String> updateUserInfo(@RequestBody @ApiParam(value = "用户个人信息") UserInfo userInfo) {
+        return userService.updateUserInfo(userInfo);
     }
 
     private boolean validateUserSign(UserSign userSign) {

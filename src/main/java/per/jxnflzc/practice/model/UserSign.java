@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 public class UserSign {
     @ApiModelProperty(value = "用户Id")
     @NotBlank(message = "用户Id不能为空")
+    @Size(message = "用户Id长度必须在4和32之间",min = 4, max = 32)
     private String userId;
 
     @ApiModelProperty(value = "用户密码")
